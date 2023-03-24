@@ -1,0 +1,18 @@
+- hosts: webservers
+  become : True
+  tasks  :
+- name : install httpd
+  yum :
+    name : httpd
+    state : present
+- name : copy.index.html
+  copy : 
+    src : index.html
+    dest : /var/www/html/index.html
+    owner : ansible
+    mode : 777
+    group : ansible
+- name : start httpd
+  service :
+    name : httpd
+    state : started  
